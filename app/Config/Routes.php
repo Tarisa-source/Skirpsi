@@ -15,3 +15,11 @@ $routes->setAutoRoute(true); // untuk melakukan routing dilakukan secara otomati
 // View bertugas untuk membuat tampilan;
 // Controller bertugas untuk membuat logika dan merespon request.
 $routes->get('/news', 'NewsController::index');
+$routes->get('/news/(:any)', 'NewsController::viewNews/$1');
+$routes->group('admin', function($routes){
+	$routes->get('news', 'NewsAdminController::index');
+	$routes->get('news/(:segment)/preview', 'NewsAdminController::preview/$1');
+    $routes->add('news/new', 'NewsAdminController::create');
+	$routes->add('news/(:segment)/edit', 'NewsAdminController::edit/$1');
+	$routes->get('news/(:segment)/delete', 'NewsAdminController::delete/$1');
+});

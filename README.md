@@ -1,4 +1,4 @@
-### Sudah sampai Migrasi Database
+### Step 3 – Membuat Layout dan View untuk Admin
 
 # Belajar CI 4
 ~ Page Layout
@@ -31,4 +31,18 @@
  * Jika kamu bingung dengan cara menggunakan perintah tersebut, bisa lihat bantuannya dengan contoh perintah: `php spark help migrate:create`
  * Untuk membuat file migrasi: `php spark migrate:create news`
  * isi file `2020-11-23-053942_news.php` terdapat 2 yaitu method up() akan dijalankan saat melakukan migrasi, sedangkan down() saat melakukan rollback. 
- * setelah menjalankan perintah `php spark migration` maka table pada db_ci4 akan menjadi seperti ![phpmyadmin](image.png)
+ * setelah menjalankan perintah `php spark migration` maka table pada db_ci4 akan menjadi seperti ![phpmyadmin](public/img/image.png)
+ * Tabel migrations adalah tabel yang otomatis dibuat untuk menyimpan versi migrasi yang sudah dilakukan. Lalu tabel news adalah tabel yang kita buat berdasarkan file migrasi.
+   ## Bagaimana Kalau ada Perubahan Skema?
+   1. Membuat file migrasi baru dan menuliskan perubahannya di sana, lalu melakukan migrasi lagi. Cara pertama ini cocok dilakukan jika kita sudah punya data, karena perubahanya akan bisa di-rollback.
+   2. Bisa malakukan rollback, lalu mengubah file migrasi yang sudah ada dan melakukan migrasi kembali atau ini bisa dipersingkat dengan `migrate:refresh`. Cocok dilakukan untuk migrasi awal. Namun kurang cocok dilakukan untuk aplikasi yang sudah punya data dan sudah melakukan migrasi berkali-kali, karena akan berpotensi menghapus data.
+ * ![Alt text](public/img/image-1.png) isi dari table migration tersebut ada 2 yaitu batch 1 dan batch 2 Jika kita melakukan rollback ke batch 1, maka data dengan nomer batch 2 akan dihapus dan kondisi database akan kembali seperti saat batch 1.
+ * mengecek status migrasi dengan perintah: `php spark migrate:status`
+
+~ Membuat Seed Data untuk 
+ * Seed data adalah data awal untuk mengisi tabel. Seed data kadang kita butuhkan untuk mengetes, dan menyiapkan data yang diperlukan di awal seperti user pertama pada aplikasi.
+ * Untuk membuat seed data, kita membutuhkan file seeder. File seeder ini dapat dibuat dengan  contoh perintah: `php spark make:seeder news`
+~ CRUD 
+ * Model merupakan class yang berfungsi untuk operasi database seperti insert data, read data, update, dan delete.
+ * [Dokumentasi model CLI](https://www.codeigniter.com/user_guide/models/model.html#configuring-your-model)
+ * Bedanya, method add() bisa dibuka dengan dua method yakni get() dan post(). Sedangkan get() hanya untuk GET saja.
